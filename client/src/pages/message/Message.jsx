@@ -1,43 +1,63 @@
-import React from 'react'
-import {Link} from 'react-router-dom'
-import './Message.scss'
+import React from 'react';
+import {Link, useParams} from 'react-router-dom';
+import {useQuery, useMutation, useQueryClient} from '@tanstack/react-query';
+import newRequest from '../../utils/newRequest.js';
+import './Message.scss';
 
 const Message = () =>{
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    const {id} = useParams();
+    const queryClient = useQueryClient();
+
+    const { isLoading, error, data} = useQuery({
+        queryKey: ["messages"],
+        queryFn: () =>
+         newRequest.get(`/messages/${id}`).then((res) => {
+            return res.data;
+         }),
+     });
+
+     const mutation = useMutation({
+        mutationFn: (message) => {
+          return newRequest.post(`/messages`, message);
+        },
+        onSuccess:()=>{
+          queryClient.invalidateQueries(["messages"])
+        },
+        onError: (err) => {
+            console.log(err);
+          },
+      });
+
+
+     const handleSubmit = (e)=>{
+        e.preventDefault();
+        mutation.mutate({
+            conversationId: id,
+            desc: e.target[0].value,
+        });
+        e.target[0].value = "";
+     }
+
     return (
         <div className='Message'>
             <div className="container">
                 <span className="breadcrumbs"><Link to="/messages" className = "link" >MESSAGES</Link> &gt; JOHN DOE &gt;</span>
-                <div className="messages">
-                    <div className="item">
+                {isLoading ? "loading.." : error ? "Oops! Something went wrong.":
+                    <div className="messages">
+                    {data.map(m =>{
+                        return (<div className={m.userId === currentUser._id ? "item owner" : "itemor"}key={m._id}>
                         <img src="https://images.pexels.com/photos/720327/pexels-photo-720327.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="" />
-                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores laborum sapiente totam qui cum officiis doloremque magnam rem voluptatum vero accusantium, delectus facere illo expedita optio. Atque, ad inventore. Neque enim quisquam inventore ut necessitatibus suscipit quod accusantium vel ipsam esse. Nulla, officia iure!</p>
-                    </div>
-                    <div className="item owner">
-                        <img src="https://images.pexels.com/photos/720327/pexels-photo-720327.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="" />
-                        <p>Thank you very much for reaching out to me. I would love to hear more about the project.</p>
-                    </div>
-                    <div className="item">
-                        <img src="https://images.pexels.com/photos/720327/pexels-photo-720327.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="" />
-                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores laborum sapiente totam qui cum officiis doloremque magnam rem voluptatum vero accusantium, delectus facere illo expedita optio. Atque, ad inventore. Neque enim quisquam inventore ut necessitatibus suscipit quod accusantium vel ipsam esse. Nulla, officia iure!</p>
-                    </div>
-                    <div className="item owner">
-                        <img src="https://images.pexels.com/photos/720327/pexels-photo-720327.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="" />
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt reiciendis dolorum cum iste mollitia quidem deserunt. Placeat repellat, in explicabo magni esse sequi deserunt laboriosam voluptas numquam quas ullam sint beatae dolorum natus deleniti aspernatur assumenda tenetur necessitatibus, nisi, eius labore accusamus eligendi ad libero.</p>
-                    </div>
-                    <div className="item">
-                        <img src="https://images.pexels.com/photos/720327/pexels-photo-720327.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="" />
-                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores laborum sapiente totam qui cum officiis doloremque magnam rem voluptatum vero accusantium, delectus facere illo expedita optio. Atque, ad inventore. Neque enim quisquam inventore ut necessitatibus suscipit quod accusantium vel ipsam esse. Nulla, officia iure!</p>
-                    </div>
-                    <div className="item owner">
-                        <img src="https://images.pexels.com/photos/720327/pexels-photo-720327.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="" />
-                        <p>Thank you very much for reaching out to me. I would love to hear more about the project.</p>
-                    </div>
+                        <p>{m.desc}</p>
+                    </div>)
+                })}
                 </div>
+                }
                 <hr/>
-                <div className="write">
+                <form className="write" onSubmit={handleSubmit}>
                     <textarea name="" placeholder='write a message' id="" cols="30" rows="10"></textarea>
-                    <button>Send</button>
-                </div>
+                    <button type="submit">Send</button>
+                </form>
             </div>
         </div>
     )

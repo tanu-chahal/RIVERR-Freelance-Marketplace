@@ -12,21 +12,20 @@
         padding: 15px;
         display: flex;
         align-items: center;
-        font-display: column;
+        flex-direction: column;
+        align-items: start;
         gap: 15px;
         .user{
             display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: start;
-            gap: 10px;
+            align-items: center;
+            gap: 15px;
             img{
                 width: 25px;
                 height: 25px;
                 border-radius: 50%;
             }
             span{
-                font-size: 12px;
+                font-size: 14px;
                 font-weight: 500;
             }
         }

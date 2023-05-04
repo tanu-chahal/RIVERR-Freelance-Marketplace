@@ -65,16 +65,26 @@
                 }
             }
 
-            button{
+            .joinBtn{
                 color: white;
-                padding: 10px 20px;
+                font-weight: 600;
+                padding: 9px 17px;
                 border-radius: 5px;
-                border: 1px solid white;
+                border: 2px solid white;
                 cursor: pointer;
                 background-color: transparent;
                 &:hover{
                     background-color: #1dbf73;
                     border-color: #1dbf73;
+                }
+                &.active{
+                    border-color: #1dbf73;
+                    color: #1dbf73;
+                    &:hover{
+                        background-color: #1dbf73;
+                        border-color: #1dbf73;
+                        color: white;
+                    }
                 }
             }
         }
