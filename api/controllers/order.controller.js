@@ -1,7 +1,8 @@
 import Order from "../models/order.model.js";
 import Gig from "../models/gig.model.js";
 import createError from "../utils/createError.js";
-import Stripe from "stripe"
+import Stripe from "stripe";
+
 
 export const intent = async (req, res, next) =>{
     const stripe = new Stripe(process.env.STRIPE_KEY);

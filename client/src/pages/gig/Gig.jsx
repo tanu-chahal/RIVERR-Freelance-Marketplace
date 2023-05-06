@@ -3,7 +3,7 @@ import "./Gig.scss";
 import Slider from "infinite-react-carousel";
 import { useQuery } from "@tanstack/react-query";
 import newRequest from "../../utils/newRequest.js";
-import { useParams } from "react-router-dom";
+import { useParams, Link} from "react-router-dom";
 import Reviews from "../../components/reviews/Reviews.jsx"
 
 const Gig = () => {
@@ -143,7 +143,9 @@ const Gig = () => {
                 </div>)
               })}
             </div>
+            <Link className="link" to={`/pay/${id}`}>
             <button>Continue</button>
+            </Link>
           </div>
         </div>
       )}

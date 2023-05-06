@@ -12,6 +12,8 @@ import MyGigs from "./pages/myGigs/MyGigs.jsx";
 import Orders from "./pages/orders/Orders.jsx";
 import Login from "./pages/login/Login.jsx";
 import Register from "./pages/register/Register.jsx";
+import Pay from "./pages/pay/Pay.jsx";
+import Success from "./pages/success/Success.jsx";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import {
   QueryClient,
@@ -78,6 +80,14 @@ function App() {
         {
           path: "/register",
           element: <Register />,
+        },
+        {
+          path: "/pay/:id",
+          element: <Pay />,
+        },
+        {
+          path: "/success",
+          element: <Success />,
         },
       ],
     },
