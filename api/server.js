@@ -27,18 +27,7 @@ const connect = async () => {
 app.use(cors({ origin: "http://127.0.0.1:5173", credentials: true })); //to allow multiple websites (like our frontend) to interact with our api
 app.use(express.json()); //a middleware to let our application take input from the user
 app.use(cookieParser());
-app.disable('contentSecurityPolicy');
-app.use((req, res, next) => {
-  res.set(
-    "Content-Security-Policy",
-    "default-src *; img-src *; frame-src *; connect-src *"
-  );
-  next();
-});
-app.use((req, res, next) => {
-  res.header('Cache-Control', 'max-age=31536000, immutable');
-  next();
-});
+
 
 app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
