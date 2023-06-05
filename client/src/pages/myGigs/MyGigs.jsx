@@ -11,7 +11,7 @@ const MyGigs = () =>{
     const { isLoading, error, data} = useQuery({
         queryKey: ["myGigs"],
         queryFn: () =>
-         newRequest.get(`/gigs?userId=${currentUser.id}`).then((res) => {
+         newRequest.get(`/gigs?userId=${currentUser._id}`).then((res) => {
             return res.data;
          }),
      });
@@ -24,7 +24,10 @@ const MyGigs = () =>{
       },
       onSuccess:()=>{
         queryClient.invalidateQueries(["myGigs"])
-      }
+      },
+      onError: (err) => {
+        console.log(err);
+      },
     });
     const handleDelete = (id) => {
       mutation.mutate(id);

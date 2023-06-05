@@ -26,6 +26,17 @@
                 input, select, textarea{
                     padding: 20px;
                 }
+                .images{
+                    display: flex;
+                    align-items: center;
+                    gap: 20px;
+
+                    .imagesInput{
+                        display: flex;
+                        flex-direction: column;
+                        gap: 20px;
+                    }
+                }
                 button{
                     border: none;
                     padding: 20px;
@@ -36,7 +47,34 @@
                     cursor: pointer;
                 }
             }
-            .right{}
+            .right{
+                .add{
+                    display: flex;
+                    justify-content: space-between;
+                    input{
+                        width: 80%;
+                    }
+                    button{
+                        padding: 20px 22px;
+                    }
+                }
+                .addedFeatures{
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 20px;
+                    button{
+                        height: 30px;
+                        font-size: 13px;
+                        font-weight: 400;
+                        background: transparent;
+                        color: #1dbf73;
+                        border: 1px solid #1dbf73;
+                        display: flex;
+                        align-items: center;
+                        gap: 20px;
+                    }
+                }
+            }
         }
     }
 }
