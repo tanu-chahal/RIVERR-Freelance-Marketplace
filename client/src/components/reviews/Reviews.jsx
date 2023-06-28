@@ -5,6 +5,8 @@ import { useQuery, useQueryClient, useMutation} from "@tanstack/react-query";
 import newRequest from "../../utils/newRequest.js";
 
 const Reviews = ({ gigId }) => {
+
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
   
   const { isLoading, error, data } = useQuery({
     queryKey: ["reviews"],

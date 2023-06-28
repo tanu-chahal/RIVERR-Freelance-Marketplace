@@ -1,5 +1,5 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import './MyGigs.scss'
 import getCurrentUser from '../../utils/getCurrentUser';
 import {useQuery, useMutation, useQueryClient} from '@tanstack/react-query';
@@ -7,6 +7,7 @@ import newRequest from '../../utils/newRequest.js';
 
 const MyGigs = () =>{
     const currentUser = getCurrentUser();
+    const navigate = useNavigate();
 
     const { isLoading, error, data} = useQuery({
         queryKey: ["myGigs"],
@@ -29,9 +30,11 @@ const MyGigs = () =>{
         console.log(err);
       },
     });
+
     const handleDelete = (id) => {
       mutation.mutate(id);
     };
+
     return (
         <div className='MyGigs'>
             {isLoading ? "Loading..." : error ? "Oops, something went wrong." : 
@@ -53,7 +56,7 @@ const MyGigs = () =>{
                     <tbody>
                         {data.map(gig =>{
                         return (<tr key={gig._id}>
-                            <td><img className='img' src={gig.cover} alt="" /></td>
+                            <td><img className='img' src={gig.cover} alt="" onClick={()=>{navigate(`/gig/${gig._id}`)}}/></td>
                             <td>{gig.title}</td>
                             <td>{gig.price}</td>
                             <td>{gig.sales}</td>

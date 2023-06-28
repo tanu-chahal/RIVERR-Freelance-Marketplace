@@ -16,11 +16,11 @@ const gigSchema = new Schema({
     },
     totalStars: {
         type: Number,
-        required: true,
+        defaultValue: 0,
     },
     starNumber: {
         type: Number,
-        required: true,
+        defaultValue: 0,
     },
     cat: {
         type: String,

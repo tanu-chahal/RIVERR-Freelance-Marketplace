@@ -6,6 +6,8 @@ import newRequest from "../../utils/newRequest.js";
 import { useParams, Link} from "react-router-dom";
 import Reviews from "../../components/reviews/Reviews.jsx"
 
+const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+
 const Gig = () => {
   const { id } = useParams();
 
@@ -143,9 +145,9 @@ const Gig = () => {
                 </div>)
               })}
             </div>
-            <Link className="link" to={`/pay/${id}`}>
+            {currentUser._id!=data.userId ? <Link className="link" to={`/pay/${id}`}>
             <button>Continue</button>
-            </Link>
+            </Link> : ""}
           </div>
         </div>
       )}

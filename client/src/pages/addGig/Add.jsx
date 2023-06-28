@@ -3,8 +3,8 @@ import "./Add.scss";
 import { INITIAL_STATE, gigReducer } from "../../reducers/gigReducer";
 import upload from "../../utils/upload.js";
 import newRequest from "../../utils/newRequest.js";
-import { useQueryClient, useMutation} from "@tanstack/react-query";
-import {useNavigate} from 'react-router-dom';
+import { useQueryClient, useMutation } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 
 const Add = () => {
   const [coverFile, setCoverFile] = useState(undefined);
@@ -29,7 +29,7 @@ const Add = () => {
   const handleUpload = async () => {
     setUploading(true);
     try {
-      const cover= await upload(coverFile);
+      const cover = await upload(coverFile);
       const images = await Promise.all(
         [...files].map(async (file) => {
           const url = await upload(file);
@@ -39,7 +39,7 @@ const Add = () => {
 
       setUploading(false);
 
-      dispatch({type:"ADD_IMAGES", payload:{cover:cover, images}}) //for same name, images:images means same as images
+      dispatch({ type: "ADD_IMAGES", payload: { cover: cover, images } }); //for same name, images:images means same as images
     } catch (err) {
       console.log(err);
     }
@@ -52,9 +52,9 @@ const Add = () => {
     mutationFn: (gig) => {
       return newRequest.post("/gigs", gig);
     },
-    onSuccess:()=>{
-      queryClient.invalidateQueries(["myGigs"])
-    }
+    onSuccess: () => {
+      queryClient.invalidateQueries(["myGigs"]);
+    },
   });
 
   const handleSubmit = () => {
@@ -62,7 +62,6 @@ const Add = () => {
     navigate("/mygigs");
   };
 
-  console.log(state);
   return (
     <div className="Add">
       <div className="container">
@@ -73,7 +72,7 @@ const Add = () => {
             <input
               type="text"
               name="title"
-              placeholder="e.g. I wil do something I'm really good at"
+              placeholder="e.g. I will do something I'm really good at"
               onChange={handleChange}
             />
 
@@ -87,20 +86,25 @@ const Add = () => {
               <option value="writing">Content Writing</option>
             </select>
 
-        <div className="images">
-            <div className="imagesInput">
-            <label htmlFor="">
-              Cover Image
-            </label>
-            <input type="file" onChange={(e) => setCoverFile(e.target.files[0])}/>
+            <div className="images">
+              <div className="imagesInput">
+                <label htmlFor="">Cover Image</label>
+                <input
+                  type="file"
+                  onChange={(e) => setCoverFile(e.target.files[0])}
+                />
 
-            <label htmlFor="">
-              Upload Images
-            </label>
-            <input type="file" multiple onChange={(e) => setFiles(e.target.files)} />
+                <label htmlFor="">Upload Images</label>
+                <input
+                  type="file"
+                  multiple
+                  onChange={(e) => setFiles(e.target.files)}
+                />
+              </div>
+              <button onClick={handleUpload}>
+                {uploading ? "uploading" : "Upload"}
+              </button>
             </div>
-            <button onClick={handleUpload}>{uploading ? "uploading" : "Upload"}</button>
-        </div>
 
             <label htmlFor="">Description</label>
             <textarea
@@ -133,15 +137,21 @@ const Add = () => {
               onChange={handleChange}
             ></textarea>
 
-            <label htmlFor="" >
-              Delivery Time(e.g. 3 days)
-            </label>
-            <input type="number" name="deliveryTime" onChange={handleChange} min={1} />
+            <label htmlFor="">Delivery Time(e.g. 3 days)</label>
+            <input
+              type="number"
+              name="deliveryTime"
+              onChange={handleChange}
+              min={1}
+            />
 
-            <label htmlFor="">
-              Revision Number
-            </label>
-            <input type="number" name="revisionNumber" onChange={handleChange} min={1} />
+            <label htmlFor="">Revision Number</label>
+            <input
+              type="number"
+              name="revisionNumber"
+              onChange={handleChange}
+              min={1}
+            />
 
             <label htmlFor="">Add Features</label>
             <form action="" className="add" onSubmit={handleFeature}>
@@ -150,15 +160,29 @@ const Add = () => {
             </form>
 
             <div className="addedFeatures">
-                    {state?.features?.map(ftr =>{return (<div className="item" key={ftr}>
-                        <button onClick={()=>dispatch({type: "REMOVE_FEATURE", payload: ftr})}>{ftr}<span>x</span></button>
-                    </div>)})}
+              {state?.features?.map((ftr) => {
+                return (
+                  <div className="item" key={ftr}>
+                    <button
+                      onClick={() =>
+                        dispatch({ type: "REMOVE_FEATURE", payload: ftr })
+                      }
+                    >
+                      {ftr}
+                      <span>x</span>
+                    </button>
+                  </div>
+                );
+              })}
             </div>
 
-            <label htmlFor="">
-              Price
-            </label>
-            <input type="number" name="price" onChange={handleChange} min={1} />
+            <label htmlFor="">Price</label>
+            <input
+              type="number"
+              name="price"
+              onChange={handleChange}
+              min={100}
+            />
           </div>
         </div>
       </div>

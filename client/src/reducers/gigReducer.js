@@ -10,7 +10,7 @@ export const INITIAL_STATE = {
     deliveryTime: 0,
     revisionNumber: 0,
     features: [],
-    price: 0,
+    price: 100,
 };
 
 export const gigReducer = (state, action)=>{
