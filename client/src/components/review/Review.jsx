@@ -1,9 +1,21 @@
 import React from "react";
+import { useState, useEffect } from 'react';
 import "./Review.scss";
 import { useQuery } from "@tanstack/react-query";
 import newRequest from "../../utils/newRequest.js";
 
 const Review = ({review}) => {
+
+  const [liked, setLiked] = useState(false);
+  const [disliked, setDisLiked] = useState(false);
+
+  const setL = () =>{
+    liked ? setLiked(false) : setLiked(true);
+  }
+
+  const setD = () =>{
+    setDisLiked(!disliked);
+  }
 
     const { isLoading, error, data } = useQuery({
       queryKey: [review.userId],
@@ -38,9 +50,9 @@ const Review = ({review}) => {
       <p>{review.desc}</p>
       <div className="helpful">
         <span>Helpful?</span>
-        <img src="/img/like.png" alt="like" />
+        <img src={liked ? "/img/liked.png" :"/img/like.png"} alt="like" onClick={setL} />
         <span>Yes</span>
-        <img src="/img/dislike.png" alt="dislike" />
+        <img src={disliked ? "/img/disliked.png" :"/img/dislike.png"} alt="dislike" onClick={setD}/>
         <span>No</span>
       </div>
     </div>
