@@ -51,7 +51,7 @@ const Home = () =>{
             <div className="features dark">
                 <div className="container">
                     <div className="item">
-                        <h1>fiverr business.</h1>
+                        <h1>riverr business.</h1>
                         <h1>A business solution designed for teams</h1>
                         <p>Upgrade to a curated experience packed with tools and benefits, dedicated to businesses</p>
                         <div className="title">
@@ -66,7 +66,7 @@ const Home = () =>{
                             <img src="./img/check.png" alt="" />
                             Manage teamwork and boost productivity with one powerful workspace
                         </div>
-                        <button>Explore Fiverr Business</button>
+                        <button>Explore Riverr Business</button>
                     </div>
                     <div className="item">
                         <img src="https://fiverr-res.cloudinary.com/q_auto,f_auto,w_870,dpr_2.0/v1/attachments/generic_asset/asset/d9c17ceebda44764b591a8074a898e63-1599597624768/business-desktop-870-x2.png" alt=""/>

@@ -34,8 +34,8 @@ const Footer = () => {
             <h2>Support</h2>
             <span>Help & Support</span>
             <span>Trust & Safety</span>
-            <span>Selling on Fiverr</span>
-            <span>Buying on Fiverr</span>
+            <span>Selling on riverr</span>
+            <span>Buying on riverr</span>
           </div>
           <div className="item">
             <h2>Community</h2>
@@ -52,16 +52,16 @@ const Footer = () => {
             <span>Community Standards</span>
           </div>
           <div className="item">
-            <h2>More From Fiverr</h2>
-            <span>Fiverr Business</span>
-            <span>Fiverr Pro</span>
-            <span>Fiverr Logo Maker</span>
-            <span>Fiverr Guides</span>
+            <h2>More From riverr</h2>
+            <span>Riverr Business</span>
+            <span>Riverr Pro</span>
+            <span>Riverr Logo Maker</span>
+            <span>Riverr Guides</span>
             <span>Get Inspired</span>
-            <span>Fiverr Select</span>
+            <span>Riverr Select</span>
             <span>Clear Voice</span>
             <span>Content Marketing</span>
-            <span>Fiverr Workspace</span>
+            <span>Riverr Workspace</span>
             <span>Invoice Software</span>
             <span>Learn</span>
             <span>Online Courses</span>
@@ -71,8 +71,8 @@ const Footer = () => {
         <hr />
         <div className="bottom">
           <div className="left">
-            <h2>fiverr</h2>
-            <span>© Fiverr International Ltd. 2023</span>
+            <h2>riverr</h2>
+            <span>© riverr International Ltd. 2023</span>
           </div>
           <div className="right">
             <div className="social">

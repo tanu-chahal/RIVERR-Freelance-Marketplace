@@ -39,12 +39,12 @@ const Navbar = () =>{
             <div className="container">
                 <div className="logo">
                     <Link to="/" className='link'>
-                        <span className="text">fiverr</span>
+                        <span className="text">riverr</span>
                     </Link>
                     <span className="dot">.</span>
                 </div>
                 <div className="links">
-                    <span>Fiverr Business</span>
+                    <span>Riverr Business</span>
                     <span>English</span>
                     <span>Explore</span>
                     {!currentUser && <Link to="/login" className='link'>Sign in</Link>}
