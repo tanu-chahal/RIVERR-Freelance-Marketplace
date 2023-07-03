@@ -55,7 +55,8 @@ const Review = ({review}) => {
         <img src={disliked ? "/img/disliked.png" :"/img/dislike.png"} alt="dislike" onClick={setD}/>
         <span>No</span>
       </div>
-    </div>
+      <hr/>
+    </div> 
   );
 };
 

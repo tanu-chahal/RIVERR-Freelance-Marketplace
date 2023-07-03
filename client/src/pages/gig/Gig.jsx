@@ -3,13 +3,15 @@ import "./Gig.scss";
 import Slider from "infinite-react-carousel";
 import { useQuery } from "@tanstack/react-query";
 import newRequest from "../../utils/newRequest.js";
-import { useParams, Link} from "react-router-dom";
+import { useParams, Link, useNavigate} from "react-router-dom";
 import Reviews from "../../components/reviews/Reviews.jsx"
+import getCurrentUser from "../../utils/getCurrentUser.js";
 
-const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+const currentUser = getCurrentUser();
 
 const Gig = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const { isLoading, error, data } = useQuery({
     queryKey: [id],
@@ -30,6 +32,24 @@ const Gig = () => {
       enabled: !!userId,
   });
 
+const createConvo = async ()=>{
+  try {
+    let convId;
+    currentUser?._id ? convId = userId + currentUser._id : convId = false;
+    let convo; 
+    if(convId){
+      convo = await newRequest.get(`/conversations/single/${convId}`);
+    }
+    if(!convo){const conversation = {
+      to: userId,
+    }
+    convo = await newRequest.post(`/conversations/`, conversation);
+    }
+    navigate(`/message/${convo.data.id}`);
+  } catch (error) {
+    console.log(error);
+  }
+}
   return (
     <div className="Gig">
       {isLoading ? (
@@ -86,7 +106,7 @@ const Gig = () => {
                  })}
                 <span> {Math.round(data.totalStars/data.starNumber)}</span>
               </div>}
-                  <button>Contact Me</button>
+                 {!currentUser?.isSeller && <button onClick={createConvo}>Contact Me</button>}
                 </div>
               </div>
               <div className="box">
@@ -145,9 +165,9 @@ const Gig = () => {
                 </div>)
               })}
             </div>
-            {currentUser._id!=data.userId ? <Link className="link" to={`/pay/${id}`}>
+            {currentUser?._id!=data.userId && <Link className="link" to={`/pay/${id}`}>
             <button>Continue</button>
-            </Link> : ""}
+            </Link>}
           </div>
         </div>
       )}

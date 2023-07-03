@@ -3,10 +3,11 @@ import "./Reviews.scss";
 import Review from "../review/Review.jsx";
 import { useQuery, useQueryClient, useMutation} from "@tanstack/react-query";
 import newRequest from "../../utils/newRequest.js";
+import getCurrentUser from "../../utils/getCurrentUser.js";
+
+const currentUser = getCurrentUser();
 
 const Reviews = ({ gigId }) => {
-
-  //const currentUser = JSON.parse(localStorage.getItem("currentUser"));
   
   const { isLoading, error, data } = useQuery({
     queryKey: ["reviews"],
@@ -44,10 +45,9 @@ const Reviews = ({ gigId }) => {
         : data.map((review) => {
             return (
               <Review key={review._id} review={review} />
-              // <hr />
             );
           })}
-      <div className="add">
+      {!currentUser?.isSeller && <div className="add">
         <h3>Add a review</h3>
         <form action="" className="addForm" onSubmit={handleSubmit}>
           <input type="text" placeholder="Write your review here" />
@@ -60,7 +60,7 @@ const Reviews = ({ gigId }) => {
           </select>
           <button>Send</button>
         </form>
-      </div>
+      </div>}
     </div>
   );
 };

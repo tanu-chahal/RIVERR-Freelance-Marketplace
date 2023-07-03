@@ -31,7 +31,7 @@ export const login = async (req,res, next) =>{
         }, process.env.JWT_SECRET_KEY);
 
         const {password, ...info} = user._doc; //so that we don't send the password.
-        res.cookie("accessToken", token,{httpOnly: true, sameSite: "none", secure: true}).status(200).send(info); //
+        res.cookie("accessToken", token,{httpOnly: true, sameSite: "none", secure: true}).status(200).send(info); 
     } catch(err){
         next(err);
     }
