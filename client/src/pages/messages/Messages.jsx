@@ -1,12 +1,22 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
 import {useQuery, useMutation, useQueryClient} from '@tanstack/react-query';
 import newRequest from '../../utils/newRequest.js';
 import './Messages.scss';
 import moment from "moment";
 
+const fetchUserData = async (reqId) => {
+    try {
+      const response = await newRequest.get(`/users/${reqId}`);
+      return response.data.username;
+    } catch (error) {
+      return 'errored';
+    }
+  };
+
 const Messages = () =>{
     const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    const [userNames, setUserNames] = useState([]);
 
     const { isLoading, error, data} = useQuery({
         queryKey: ["conversations"],
@@ -16,12 +26,28 @@ const Messages = () =>{
          }),
      });
 
+    useEffect(() => {
+        if (data) {
+            const fetchUserNames = async () => {
+              const promises = data.map((m) => {
+                const reqId = currentUser.isSeller ? m.buyerId : m.sellerId;
+                return fetchUserData(reqId);
+              });
+              const names = await Promise.all(promises);
+              setUserNames(names);
+            };
+        
+            fetchUserNames();
+          }
+      }, [data, currentUser.isSeller]);
+
      const queryClient = useQueryClient();
 
      const mutation = useMutation({
         mutationFn: (id) => {
           return newRequest.put(`/conversations/${id}`);
         },
+        mutationKey: ['conversation'],
         onSuccess:()=>{
           queryClient.invalidateQueries(["conversations"])
         },
@@ -52,10 +78,11 @@ const Messages = () =>{
                     </tr>
                     </thead>
                     <tbody>
-                    {data.map(c=>{
+                    {data.map((c,index)=>{
+                    
                         return (<tr className={((currentUser.isSeller && !c.readBySeller) || (!currentUser.isSeller && !c.readByBuyer)) ?
                             "active" : ""} key={c.id}>
-                        <td>{currentUser.isSeller ? c.buyerId : c.sellerId}</td>
+                        <td>{userNames[index]}</td>
                         <td><Link to={`/message/${c.id}`} className='link'>{c?.lastMessage?.substring(0,90)}...</Link></td>
                         <td>{moment(c.updatedAt).fromNow()}</td>
                         <td>{(currentUser.isSeller && !c.readBySeller) || (!currentUser.isSeller && !c.readByBuyer) &&
