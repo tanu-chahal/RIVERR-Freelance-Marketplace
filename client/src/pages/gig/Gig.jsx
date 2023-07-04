@@ -32,22 +32,16 @@ const Gig = () => {
       enabled: !!userId,
   });
 
-const createConvo = async ()=>{
+const handleContact = async ()=>{
+  const convId = userId + currentUser?._id;
   try {
-    let convId;
-    currentUser?._id ? convId = userId + currentUser._id : convId = false;
-    let convo; 
-    if(convId){
-      convo = await newRequest.get(`/conversations/single/${convId}`);
-    }
-    if(!convo){const conversation = {
-      to: userId,
-    }
-    convo = await newRequest.post(`/conversations/`, conversation);
-    }
-    navigate(`/message/${convo.data.id}`);
+    const response = await newRequest.get(`/conversations/single/${convId}`);
+    navigate(`/message/${response.data.id}`);
   } catch (error) {
-    console.log(error);
+    if(error.response.status === 404){
+      const response = await newRequest.post(`/conversations`,{to:userId});
+      navigate(`/message/${response.data.id}`);
+      }
   }
 }
   return (
@@ -106,7 +100,7 @@ const createConvo = async ()=>{
                  })}
                 <span> {Math.round(data.totalStars/data.starNumber)}</span>
               </div>}
-                 {!currentUser?.isSeller && <button onClick={createConvo}>Contact Me</button>}
+                 {!currentUser?.isSeller && <button onClick={handleContact}>Contact Me</button>}
                 </div>
               </div>
               <div className="box">
