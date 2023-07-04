@@ -21,13 +21,13 @@ const Orders = () => {
     const buyerId = order.buyerId;
     const id = sellerId+buyerId;
     try {
-      const res = await newRequest.get(`/conversations/single/${id}`);
-      navigate(`/message/${res.data.id}`);
+      const response = await newRequest.get(`/conversations/single/${id}`);
+      navigate(`/message/${response.data.id}`);
     } catch (error) {
-      if(error.respone.status === 404){
-      const res = await newRequest.post(`/conversations`,{to: currentUser.isSeller ? buyerId : sellerId});
+      if(error.response.status === 404){
+      const response = await newRequest.post(`/conversations`,{to: currentUser.isSeller ? buyerId : sellerId});
+      navigate(`/message/${response.data.id}`);
       }
-      navigate(`/message/${res.data.id}`);
     }
     
   }
