@@ -3,7 +3,7 @@ import './Gigs.scss'
 import GigCard from '../../components/gigCard/GigCard.jsx';
 import {useQuery} from '@tanstack/react-query'
 import newRequest from '../../utils/newRequest.js';
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 
 function Gigs(){
     
@@ -37,7 +37,7 @@ function Gigs(){
     return (
         <div className='Gigs'>
             <div className="container">
-                <span className="breadcrumbs">RIVERR &gt; GRAPHICS & DESIGN &gt;</span>
+                <span className="breadcrumbs"><Link to="/" className="link">RIVERR </Link> &gt; {search.substring(5,search.length)} &gt;</span>
                 <h1>AI Artists</h1>
                 <p>Explore the boundaries of art and technology with Riverr's AI artists</p>
                 <div className="menu">

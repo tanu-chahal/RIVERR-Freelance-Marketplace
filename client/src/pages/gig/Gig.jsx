@@ -60,7 +60,7 @@ const createConvo = async ()=>{
         <div className="container">
           <div className="left">
             <span className="breadcrumbs">
-              FIVERR &gt; GRAPHICS & DESIGN &gt;
+            <Link to="/" className="link">RIVERR </Link> &gt; <Link to={`/gigs?cat=${data.cat}`} className="link">GIGS </Link>&gt;
             </span>
             <h1>{data.title}</h1>
             {
