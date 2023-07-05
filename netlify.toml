@@ -4,5 +4,4 @@ base = "client"
 [build.environment]
 NODE_VERSION = "v16.17.1" 
 
-[build]
   command = "yarn build" 
