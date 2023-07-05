@@ -14,7 +14,6 @@ import Login from "./pages/login/Login.jsx";
 import Register from "./pages/register/Register.jsx";
 import Pay from "./pages/pay/Pay.jsx";
 import Success from "./pages/success/Success.jsx";
-import checkToken from "./utils/checkToken.js"
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import {
   QueryClient,
@@ -25,10 +24,6 @@ import {
 function App() {
 
   const queryClient = new QueryClient();
-
-  useEffect(() => {
-    checkToken();
-  }, []);
 
   const Layout = () => {
     return (

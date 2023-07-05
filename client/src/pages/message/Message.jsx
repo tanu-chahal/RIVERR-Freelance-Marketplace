@@ -5,9 +5,8 @@ import newRequest from "../../utils/newRequest.js";
 import "./Message.scss";
 import getCurrentUser from "../../utils/getCurrentUser.js";
 
-const currentUser = getCurrentUser();
-
 const Message = () => {
+  const currentUser = getCurrentUser();
   const { id } = useParams();
   const queryClient = useQueryClient();
 
@@ -19,7 +18,7 @@ const Message = () => {
       }),
   });
 
-  const len = currentUser._id.length;
+  const len = currentUser?._id.length;
   const sellerId = id.substring(0, len);
   const buyerId = id.substring(len, id.length);
 

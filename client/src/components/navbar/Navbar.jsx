@@ -5,9 +5,8 @@ import newRequest from "../../utils/newRequest.js";
 import "./Navbar.scss"
 import getCurrentUser from "../../utils/getCurrentUser.js";
 
-const currentUser = getCurrentUser();
-
 const Navbar = () =>{
+    const currentUser = getCurrentUser();
 
     const [active, setActive] = useState(false);
     const[open, setOpen] = useState(false);
