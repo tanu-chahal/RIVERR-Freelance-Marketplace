@@ -3,6 +3,9 @@ import {Link, useLocation, useNavigate} from 'react-router-dom'
 import { useState, useEffect } from 'react';
 import newRequest from "../../utils/newRequest.js";
 import "./Navbar.scss"
+import getCurrentUser from "../../utils/getCurrentUser.js";
+
+const currentUser = getCurrentUser();
 
 const Navbar = () =>{
 
@@ -21,8 +24,6 @@ const Navbar = () =>{
             window.removeEventListener("scroll", isActive); 
         };
     }, []);
-
-    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
     const handleLogout = async () =>{
         try {

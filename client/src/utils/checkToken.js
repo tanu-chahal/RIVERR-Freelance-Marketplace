@@ -1,13 +1,11 @@
 import newRequest from './newRequest.js';
 
-const checkToken =() =>{
+const checkToken = async () =>{
     try{
-        const user = newRequest.get('/verify');
-        if(!user){
-        newRequest.post("/auth/logout");}
+        await newRequest.get('/verify');
     }catch(err){
-        console.log(err);
-        newRequest.post("/auth/logout");
+        await newRequest.post("/auth/logout");
+        localStorage.setItem("currentUser", null);
     }
      
 }
