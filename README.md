@@ -23,7 +23,7 @@ RIVERR is a freelance marketplace website, a clone ofa fiverr.com, where users c
 
 ## Live Site
 
-Check out the live site: [RIVERR Live](#)
+Check out the live site: [RIVERR Live](https://master--amazing-tarsier-1b80f4.netlify.app/)
 
 ## How to Contribute
 
