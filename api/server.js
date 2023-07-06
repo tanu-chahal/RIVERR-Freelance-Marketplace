@@ -23,7 +23,7 @@ const connect = async () => {
     console.log(error);
   }
 };
-const allowedOrigins = ["http://127.0.0.1:5173", "https://riverr-freelance.netlify.app/"]
+const allowedOrigins = ["http://127.0.0.1:5173", "https://riverr-freelance.netlify.app/", "https://64a6b5a22f111f0008e6241a--riverr-freelance.netlify.app"]
 
 app.use(cors({ origin: allowedOrigins , credentials: true })); //to allow multiple websites (like our frontend) to interact with our api
 app.use(express.json()); //a middleware to let our application take input from the user
