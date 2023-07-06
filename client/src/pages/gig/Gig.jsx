@@ -1,6 +1,6 @@
 import React from "react";
 import "./Gig.scss";
-import Slider from "infinite-react-carousel";
+import Slider from "../../components/slider/Slider";
 import { useQuery } from "@tanstack/react-query";
 import newRequest from "../../utils/newRequest.js";
 import { useParams, Link, useNavigate} from "react-router-dom";
