@@ -12,7 +12,7 @@ const Home = () =>{
         <div className='Home'>
             <Featured/>
             <TrustedBy/>
-            <Slide slidesToShow={5} arrowsScroll={5}>
+            <Slide slidesToShow={4} arrowsScroll={1}>
                 {cards.map(card => <CatCard item={card} key={card.id}/>)}
             </Slide>
             <div className="features">
@@ -73,7 +73,7 @@ const Home = () =>{
                     </div>
                 </div>
             </div>
-            <Slide slidesToShow={4} arrowsScroll={4}>
+            <Slide slidesToShow={4} arrowsScroll={1}>
                 {projects.map(project => <ProjectCard item={project} key={project.id}/>)}
             </Slide>
         </div>
