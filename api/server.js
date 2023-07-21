@@ -1,3 +1,4 @@
+import { createServer } from 'http';
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
@@ -23,13 +24,18 @@ const connect = async () => {
     console.log(error);
   }
 };
-const allowedOrigins = ["http://127.0.0.1:5173", "https://riverr-freelance.netlify.app", "https://64a6b5a22f111f0008e6241a--riverr-freelance.netlify.app"]
+const allowedOrigins = [
+  "http://127.0.0.1:5173",
+  "https://riverr-freelance.netlify.app",
+  "https://64a6b5a22f111f0008e6241a--riverr-freelance.netlify.app",
+];
 
-app.use(cors({ origin: allowedOrigins , credentials: true })); //to allow multiple websites (like our frontend) to interact with our api
-app.use(express.json()); //a middleware to let our application take input from the user
+app.use(cors({ origin: allowedOrigins, credentials: true })); 
+app.use(express.json()); 
 app.use(cookieParser());
-
-
+app.get("/", (req, res) => {
+  res.send("Hello, Riverr Server is running here!")
+})
 app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
 app.use("/api/gigs", gigRoute);
@@ -44,7 +50,20 @@ app.use((err, req, res, next) => {
   return res.status(errorStatus).send(errorMessage);
 });
 
-app.listen(5000, () => {
-  connect();
-  console.log("Server is listening on 5000...");
-});
+// Convert app into a serverless function for backend on netlify
+const server = createServer(app);
+
+export function handler(event, context) {
+  // Connect to MongoDB and start the server
+  connect().then(() => {
+    server.listen((context && context.port) || 5000, () => {
+      console.log('Riverr Server is running here!');
+    });
+  });
+}
+
+// const port = process.env.PORT || 5000;
+// app.listen(port, () => {
+//   connect();
+//   console.log(`Server is listening on ${port}...`);
+// });

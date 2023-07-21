@@ -2,7 +2,7 @@
 
 ![RIVERR](./client/public/img/app-ss.png)
 
-RIVERR is a freelance marketplace website, a clone ofa fiverr.com, where users can create buyer and seller profiles, offer gigs, communicate with each other, and make payments using the Stripe API.
+RIVERR is a freelance marketplace website, a clone of fiverr.com, where users can create buyer and seller profiles, offer gigs, communicate with each other, and make payments using the Stripe API.
 
 ## Tech Stack Used
 
@@ -23,7 +23,7 @@ RIVERR is a freelance marketplace website, a clone ofa fiverr.com, where users c
 
 ## Live Site
 
-Check out the live site: [RIVERR Live](https://master--amazing-tarsier-1b80f4.netlify.app/)
+Check out the live site: [RIVERR Live](https://riverr-freelance.netlify.app/)
 
 ## How to Contribute
 
